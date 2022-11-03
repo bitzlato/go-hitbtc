@@ -6,8 +6,8 @@ import (
 
 // Orderbook represents an orderbook from hitbtc api.
 type Orderbook struct {
-	Ask []OrderBookItem `json:"ask,struct"`
-	Bid []OrderBookItem `json:"bid,struct"`
+	Ask []OrderBookItem `json:"ask"`
+	Bid []OrderBookItem `json:"bid"`
 }
 
 // OrderBookItem for Ask and Bid field.

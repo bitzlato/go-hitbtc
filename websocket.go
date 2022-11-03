@@ -171,22 +171,22 @@ func (c *WSClient) Close() {
 
 // WSGetCurrencyRequest is get currency request type on websocket
 type WSGetCurrencyRequest struct {
-	Currency string `json:"currency,required"`
+	Currency string `json:"currency"`
 }
 
 // WSGetCurrencyResponse is get currency response type on websocket
 type WSGetCurrencyResponse struct {
-	ID                 string `json:"id,required"`
-	FullName           string `json:"fullname,required"`
-	Crypto             bool   `json:"crypto,required"`
-	PayinEnabled       bool   `json:"payinEnabled,required"`
-	PayinPaymentID     bool   `json:"payinPaymentId,required"`
-	PayinConfirmations int    `json:"payinConfirmations,required"`
-	PayoutEnabled      bool   `json:"payoutEnabled,required"`
-	PayoutIsPaymentID  bool   `json:"payoutIsPaymentId,required"`
-	TransferEnabled    bool   `json:"transferEnabled,required"`
-	Delisted           bool   `json:"delisted,required"`
-	PayoutFee          string `json:"payoutFee,required"`
+	ID                 string `json:"id"`
+	FullName           string `json:"fullname"`
+	Crypto             bool   `json:"crypto"`
+	PayinEnabled       bool   `json:"payinEnabled"`
+	PayinPaymentID     bool   `json:"payinPaymentId"`
+	PayinConfirmations int    `json:"payinConfirmations"`
+	PayoutEnabled      bool   `json:"payoutEnabled"`
+	PayoutIsPaymentID  bool   `json:"payoutIsPaymentId"`
+	TransferEnabled    bool   `json:"transferEnabled"`
+	Delisted           bool   `json:"delisted"`
+	PayoutFee          string `json:"payoutFee"`
 }
 
 // GetCurrencyInfo get the info about a currency.
@@ -203,19 +203,19 @@ func (c *WSClient) GetCurrencyInfo(symbol string) (*WSGetCurrencyResponse, error
 
 // WSGetSymbolRequest is get symbols request type on websocket
 type WSGetSymbolRequest struct {
-	Symbol string `json:"symbol,required"`
+	Symbol string `json:"symbol"`
 }
 
 // WSGetSymbolResponse is get symbols response type on websocket
 type WSGetSymbolResponse struct {
-	ID                   string `json:"id,required"`
-	BaseCurrency         string `json:"baseCurrency,required"`
-	QuoteCurrency        string `json:"quoteCurrency,required"`
-	QuantityIncrement    string `json:"quantityIncrement,required"`
-	TickSize             string `json:"tickSize,required"`
-	TakeLiquidityRate    string `json:"takeLiquidityRate,required"`
-	ProvideLiquidityRate string `json:"provideLiquidityRate,required"`
-	FeeCurrency          string `json:"feeCurrency,required"`
+	ID                   string `json:"id"`
+	BaseCurrency         string `json:"baseCurrency"`
+	QuoteCurrency        string `json:"quoteCurrency"`
+	QuantityIncrement    string `json:"quantityIncrement"`
+	TickSize             string `json:"tickSize"`
+	TakeLiquidityRate    string `json:"takeLiquidityRate"`
+	ProvideLiquidityRate string `json:"provideLiquidityRate"`
+	FeeCurrency          string `json:"feeCurrency"`
 }
 
 // GetSymbol obtains the data of a market.
@@ -232,10 +232,10 @@ func (c *WSClient) GetSymbol(symbol string) (*WSGetSymbolResponse, error) {
 
 // WSGetTradesRequest is get trades request type on websocket
 type WSGetTradesRequest struct {
-	Symbol string     `json:"symbol,required"`
-	Limit  int        `json:"limit,required"`
-	Sort   string     `json:"sort,required"`
-	By     string     `json:"by,required"`
+	Symbol string     `json:"symbol"`
+	Limit  int        `json:"limit"`
+	Sort   string     `json:"sort"`
+	By     string     `json:"by"`
 	From   *time.Time `json:"from,omitempty"`
 	Till   *time.Time `json:"till,omitempty"`
 	Offset *string    `json:"offset,omitempty"`
@@ -243,7 +243,7 @@ type WSGetTradesRequest struct {
 
 // WSGetTradesResponse  is get symbols response type on websocket
 type WSGetTradesResponse struct {
-	Data []WSTrades `json:"data,required"`
+	Data []WSTrades `json:"data"`
 }
 
 // GetTrades obtains the data of a series of trades, based on the specified filters.
@@ -263,21 +263,21 @@ type wsSubscriptionResponse bool
 
 // WSSubscriptionRequest is request type on websocket subscription.
 type WSSubscriptionRequest struct {
-	Symbol string `json:"symbol,required"`
+	Symbol string `json:"symbol"`
 }
 
 // WSNotificationTickerResponse is notification response type on websocket
 type WSNotificationTickerResponse struct {
-	Ask         string `json:"ask,required"`         // Best ask price
-	Bid         string `json:"bid,required"`         // Best bid price
-	Last        string `json:"last,required"`        // Last trade price
-	Open        string `json:"open,required"`        // Last trade price 24 hours ago
-	Low         string `json:"low,required"`         // Lowest trade price within 24 hours
-	High        string `json:"high,required"`        // Highest trade price within 24 hours
-	Volume      string `json:"volume,required"`      // Total trading amount within 24 hours in base currency
-	VolumeQuote string `json:"volumeQuote,required"` // Total trading amount within 24 hours in quote currency
-	Timestamp   string `json:"timestamp,required"`   // Last update or refresh ticker timestamp
-	Symbol      string `json:"symbol,required"`
+	Ask         string `json:"ask"`         // Best ask price
+	Bid         string `json:"bid"`         // Best bid price
+	Last        string `json:"last"`        // Last trade price
+	Open        string `json:"open"`        // Last trade price 24 hours ago
+	Low         string `json:"low"`         // Lowest trade price within 24 hours
+	High        string `json:"high"`        // Highest trade price within 24 hours
+	Volume      string `json:"volume"`      // Total trading amount within 24 hours in base currency
+	VolumeQuote string `json:"volumeQuote"` // Total trading amount within 24 hours in quote currency
+	Timestamp   string `json:"timestamp"`   // Last update or refresh ticker timestamp
+	Symbol      string `json:"symbol"`
 }
 
 // SubscribeTicker subscribes to the specified market ticker notifications.
@@ -311,23 +311,23 @@ func (c *WSClient) UnsubscribeTicker(symbol string) error {
 
 // WSNotificationTradesSnapshot is notification response type to trades on websocket
 type WSNotificationTradesSnapshot struct {
-	Data   []WSTrades `json:"data,required"`
-	Symbol string     `json:"symbol,required"`
+	Data   []WSTrades `json:"data"`
+	Symbol string     `json:"symbol"`
 }
 
 // WSNotificationTradesUpdate is notification response type to trades on websocket
 type WSNotificationTradesUpdate struct {
-	Data   WSTrades `json:"data,required"`
-	Symbol string   `json:"symbol,required"`
+	Data   WSTrades `json:"data"`
+	Symbol string   `json:"symbol"`
 }
 
 // WSTrades is item for Trades
 type WSTrades struct {
-	ID        int    `json:"id,required"`
-	Price     string `json:"price,required"`
+	ID        int    `json:"id"`
+	Price     string `json:"price"`
 	Quantity  string `json:"quantity"`
-	Side      string `json:"side,required"`
-	Timestamp string `json:"timestamp,required"`
+	Side      string `json:"side"`
+	Timestamp string `json:"timestamp"`
 }
 
 // SubscribeTrades subscribes to the specified market trades notifications.
@@ -366,24 +366,24 @@ func (c *WSClient) UnsubscribeTrades(symbol string) error {
 
 // WSSubtypeTrade is element of market trade type
 type WSSubtypeTrade struct {
-	Price string `json:"price,required"`
-	Size  string `json:"size,required"`
+	Price string `json:"price"`
+	Size  string `json:"size"`
 }
 
 // WSNotificationOrderbookSnapshot is notification response type to orderbook snapshot on websocket
 type WSNotificationOrderbookSnapshot struct {
-	Ask      []WSSubtypeTrade `json:"ask,required"`
-	Bid      []WSSubtypeTrade `json:"bid,required"`
-	Symbol   string           `json:"symbol,required"`
-	Sequence int64            `json:"sequence,required"` // used to see if update is the latest received
+	Ask      []WSSubtypeTrade `json:"ask"`
+	Bid      []WSSubtypeTrade `json:"bid"`
+	Symbol   string           `json:"symbol"`
+	Sequence int64            `json:"sequence"` // used to see if update is the latest received
 }
 
 // WSNotificationOrderbookUpdate is notification response type to orderbook snapshot on websocket
 type WSNotificationOrderbookUpdate struct {
-	Ask      []WSSubtypeTrade `json:"ask,required"`
-	Bid      []WSSubtypeTrade `json:"bid,required"`
-	Symbol   string           `json:"symbol,required"`
-	Sequence int64            `json:"sequence,required"` // used to see if the snapshot is the latest
+	Ask      []WSSubtypeTrade `json:"ask"`
+	Bid      []WSSubtypeTrade `json:"bid"`
+	Symbol   string           `json:"symbol"`
+	Sequence int64            `json:"sequence"` // used to see if the snapshot is the latest
 }
 
 // SubscribeOrderbook subscribes to the specified market order book notifications.
@@ -429,33 +429,33 @@ const (
 
 // WSCandlesSubscriptionRequest is a request to subscribe for candle data.
 type WSCandlesSubscriptionRequest struct {
-	Symbol string `json:"symbol,required"`
-	Period string `json:"period,required"`
+	Symbol string `json:"symbol"`
+	Period string `json:"period"`
 }
 
 // WSNotificationCandlesSnapshot is subscribe response type to candles on websocket
 type WSNotificationCandlesSnapshot struct {
-	Data   []WSCandles `json:"data,required"`
-	Symbol string      `json:"symbol,required"`
-	Period string      `json:"period,required"`
+	Data   []WSCandles `json:"data"`
+	Symbol string      `json:"symbol"`
+	Period string      `json:"period"`
 }
 
 // WSNotificationCandlesUpdate is subscribe response type to candles on websocket
 type WSNotificationCandlesUpdate struct {
-	Data   WSCandles `json:"data,required"`
-	Symbol string    `json:"symbol,required"`
-	Period string    `json:"period,required"`
+	Data   WSCandles `json:"data"`
+	Symbol string    `json:"symbol"`
+	Period string    `json:"period"`
 }
 
 // WSCandles is item for WSCandles
 type WSCandles struct {
-	Timestamp   time.Time `json:"timestamp,required"`
-	Open        string    `json:"open,required"`
-	Close       string    `json:"close,required"`
-	Min         string    `json:"min,required"`
-	Max         string    `json:"max,required"`
-	Volume      string    `json:"volume,required"`      // Total trading amount within 24 hours in base currency
-	VolumeQuote string    `json:"volumeQuote,required"` // Total trading amount within 24 hours in quote currency
+	Timestamp   time.Time `json:"timestamp"`
+	Open        string    `json:"open"`
+	Close       string    `json:"close"`
+	Min         string    `json:"min"`
+	Max         string    `json:"max"`
+	Volume      string    `json:"volume"`      // Total trading amount within 24 hours in base currency
+	VolumeQuote string    `json:"volumeQuote"` // Total trading amount within 24 hours in quote currency
 }
 
 // SubscribeCandles subscribes to the specified market candle notifications for the specified timeframe.

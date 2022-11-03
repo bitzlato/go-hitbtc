@@ -44,13 +44,13 @@ func handleErr(r interface{}) error {
 				errorMessage := error.(map[string]interface{})["message"]
 				return errors.New(errorMessage.(string))
 			default:
-				return fmt.Errorf("I don't know about type %T!\n", v)
+				return fmt.Errorf("unknown error type %T", v)
 			}
 		}
 	case []interface{}:
 		return nil
 	default:
-		return fmt.Errorf("I don't know about type %T!\n", v)
+		return fmt.Errorf("unknown error type %T", v)
 	}
 
 	return nil
@@ -353,7 +353,7 @@ func (b *HitBtc) GetTransactions(start uint64, end uint64, limit uint32) (transa
 // Withdraw performs a withdrawal operation.
 func (b *HitBtc) Withdraw(address string, currency string, amount float64) (withdrawID string, err error) {
 	type withdrawResponse struct {
-		ID string `json:"id,required"`
+		ID string `json:"id"`
 	}
 
 	payload := map[string]string{
@@ -394,7 +394,7 @@ const (
 // TransferBalance performs a balance transfer operation between trading and bank accounts (both directions).
 func (b *HitBtc) TransferBalance(currency string, amount float64, transferType transferType) (transferID string, err error) {
 	type transferResponse struct {
-		ID string `json:"id,required"`
+		ID string `json:"id"`
 	}
 
 	payload := map[string]string{

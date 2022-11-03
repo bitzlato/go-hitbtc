@@ -129,7 +129,7 @@ func (c *client) do(method string, resource string, payload map[string]string, a
 		return
 	}
 
-	if method != "GET" {
+	if method == "POST" || method == "PUT" {
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	}
 	req.Header.Add("Accept", "application/json")

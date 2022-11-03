@@ -5,8 +5,13 @@ go-hitbtc is an implementation of the HitBTC API (public and private) in Golang.
 
 This version implement V2 HitBTC API.
 
+### Differences from `github.com/saniales/go-hitbtc`
+
+* Extended API error information. Error code, message, description added.
+* Fixes bug with missing `Content-Type` header for `POST`, `PUT` requests
+
 ## Import
-	import "github.com/bitbandi/go-hitbtc"
+	import "github.com/bitzlato/cgo-hitbtc"
 	
 ## Usage
 
@@ -17,7 +22,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/bitbandi/go-hitbtc"
+	"github.com/bitzlato/cgo-hitbtc"
 )
 
 const (
@@ -44,7 +49,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-	"github.com/bitbandi/go-hitbtc"
+	"github.com/bitzlato/cgo-hitbtc"
 )
 
 const (
@@ -82,7 +87,7 @@ func main() {
 }
 ~~~
 
-See ["Examples" folder for more... examples](https://github.com/bitbandi/go-hitbtc/blob/master/examples/hitbtc.go)
+See ["Examples" folder for more... examples](https://github.com/bitzlato/cgo-hitbtc/blob/master/examples/hitbtc.go)
 
 # Projects using this library
 

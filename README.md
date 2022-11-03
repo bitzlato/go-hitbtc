@@ -11,7 +11,7 @@ This version implement V2 HitBTC API.
 * Fixes bug with missing `Content-Type` header for `POST`, `PUT` requests
 
 ## Import
-	import "github.com/bitzlato/cgo-hitbtc"
+	import "github.com/bitzlato/go-hitbtc"
 	
 ## Usage
 
@@ -22,7 +22,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/bitzlato/cgo-hitbtc"
+	"github.com/bitzlato/go-hitbtc"
 )
 
 const (
@@ -49,7 +49,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-	"github.com/bitzlato/cgo-hitbtc"
+	"github.com/bitzlato/go-hitbtc"
 )
 
 const (
@@ -87,7 +87,7 @@ func main() {
 }
 ~~~
 
-See ["Examples" folder for more... examples](https://github.com/bitzlato/cgo-hitbtc/blob/master/examples/hitbtc.go)
+See ["Examples" folder for more... examples](https://github.com/bitzlato/go-hitbtc/blob/master/examples/hitbtc.go)
 
 # Projects using this library
 

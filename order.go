@@ -20,6 +20,7 @@ type Order struct {
 	Updated       time.Time `json:"updatedAt"`
 	StopPrice     float64   `json:"stopPrice,string"`
 	Expire        time.Time `json:"expireTime"`
+	TradesReport  []Trade   `json:"tradesReport"`
 }
 
 func (t *Order) UnmarshalJSON(data []byte) error {

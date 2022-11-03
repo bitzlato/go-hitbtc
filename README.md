@@ -9,6 +9,7 @@ This version implement V2 HitBTC API.
 
 * Extended API error information. Error code, message, description added.
 * Fixes bug with missing `Content-Type` header for `POST`, `PUT` requests
+* Add `tradesReport` field to `Order` model
 
 ## Import
 	import "github.com/bitzlato/go-hitbtc"

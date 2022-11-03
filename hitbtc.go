@@ -33,29 +33,6 @@ func NewWithCustomTimeout(apiKey, apiSecret string, timeout time.Duration) *HitB
 	return &HitBtc{client}
 }
 
-// handleErr gets JSON response from livecoin API en deal with error
-func handleErr(r interface{}) error {
-	switch v := r.(type) {
-	case map[string]interface{}:
-		error := r.(map[string]interface{})["error"]
-		if error != nil {
-			switch v := error.(type) {
-			case map[string]interface{}:
-				errorMessage := error.(map[string]interface{})["message"]
-				return errors.New(errorMessage.(string))
-			default:
-				return fmt.Errorf("unknown error type %T", v)
-			}
-		}
-	case []interface{}:
-		return nil
-	default:
-		return fmt.Errorf("unknown error type %T", v)
-	}
-
-	return nil
-}
-
 // HitBtc represent a HitBTC client
 type HitBtc struct {
 	client *client
@@ -72,13 +49,6 @@ func (b *HitBtc) GetCurrencies() (currencies []Currency, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &currencies)
 	return
 }
@@ -87,13 +57,6 @@ func (b *HitBtc) GetCurrencies() (currencies []Currency, err error) {
 func (b *HitBtc) GetSymbols() (symbols []Symbol, err error) {
 	r, err := b.client.do("GET", "public/symbol", nil, false)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 	err = json.Unmarshal(r, &symbols)
@@ -106,13 +69,6 @@ func (b *HitBtc) GetTicker(market string) (ticker Ticker, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &ticker)
 	return
 }
@@ -121,13 +77,6 @@ func (b *HitBtc) GetTicker(market string) (ticker Ticker, err error) {
 func (b *HitBtc) GetOrderbook(market string) (orderbook Orderbook, err error) {
 	r, err := b.client.do("GET", "public/orderbook/"+strings.ToUpper(market), nil, false)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 	err = json.Unmarshal(r, &orderbook)
@@ -140,13 +89,6 @@ func (b *HitBtc) GetAllTicker() (tickers Tickers, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &tickers)
 	return
 }
@@ -155,13 +97,6 @@ func (b *HitBtc) GetAllTicker() (tickers Tickers, err error) {
 func (b *HitBtc) GetBalances() (balances []Balance, err error) {
 	r, err := b.client.do("GET", "trading/balance", nil, true)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 	err = json.Unmarshal(r, &balances)
@@ -194,13 +129,6 @@ func (b *HitBtc) GetTrades(currencyPair string) (trades []Trade, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &trades)
 	return
 }
@@ -215,13 +143,6 @@ func (b *HitBtc) CancelOrder(currencyPair string) (orders []Order, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &orders)
 	return
 }
@@ -234,13 +155,6 @@ func (b *HitBtc) GetOrder(orderId string) (orders []Order, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &orders)
 	return
 }
@@ -251,13 +165,6 @@ func (b *HitBtc) GetOrderHistory() (orders []Order, err error) {
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &orders)
 	return
 }
@@ -266,13 +173,6 @@ func (b *HitBtc) GetOrderHistory() (orders []Order, err error) {
 func (b *HitBtc) GetOpenOrders() (orders []Order, err error) {
 	r, err := b.client.do("GET", "order", nil, true)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 	err = json.Unmarshal(r, &orders)
@@ -302,16 +202,6 @@ func (b *HitBtc) PlaceOrder(requestOrder Order) (responseOrder Order, err error)
 	if err != nil {
 		return
 	}
-
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-
-	if err = handleErr(response); err != nil {
-		return
-	}
-
 	err = json.Unmarshal(r, &responseOrder)
 	return
 }
@@ -339,13 +229,6 @@ func (b *HitBtc) GetTransactions(start uint64, end uint64, limit uint32) (transa
 	if err != nil {
 		return
 	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
-		return
-	}
 	err = json.Unmarshal(r, &transactions)
 	return
 }
@@ -364,13 +247,6 @@ func (b *HitBtc) Withdraw(address string, currency string, amount float64) (with
 
 	r, err := b.client.do("POST", "account/crypto/withdraw", payload, true)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 
@@ -405,13 +281,6 @@ func (b *HitBtc) TransferBalance(currency string, amount float64, transferType t
 
 	r, err := b.client.do("POST", "account/transfer", payload, true)
 	if err != nil {
-		return
-	}
-	var response interface{}
-	if err = json.Unmarshal(r, &response); err != nil {
-		return
-	}
-	if err = handleErr(response); err != nil {
 		return
 	}
 

@@ -1,6 +1,7 @@
 package hitbtc
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -152,8 +153,21 @@ func (c *client) do(method string, resource string, payload map[string]string, a
 	if err != nil {
 		return response, err
 	}
-	if resp.StatusCode != 200 && resp.StatusCode != 401 {
-		return response, errors.New(resp.Status)
+
+	if resp.StatusCode >= http.StatusBadRequest {
+		type wrapErr struct {
+			Error *APIError `json:"error"`
+		}
+		var apiErr wrapErr
+		err = json.Unmarshal(response, &apiErr)
+		if err != nil {
+			return response, err
+		} else if apiErr.Error == nil {
+			return response, ErrMalformedErrorResponse
+		}
+
+		return response, apiErr.Error
 	}
-	return response, err
+
+	return response, nil
 }

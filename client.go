@@ -155,18 +155,15 @@ func (c *client) do(method string, resource string, payload map[string]string, a
 	}
 
 	if resp.StatusCode >= http.StatusBadRequest {
-		type wrapErr struct {
-			Error *APIError `json:"error"`
-		}
-		var apiErr wrapErr
-		err = json.Unmarshal(response, &apiErr)
+		apiErr := new(APIError)
+		err = json.Unmarshal(response, apiErr)
 		if err != nil {
 			return response, err
-		} else if apiErr.Error == nil {
+		} else if apiErr == nil {
 			return response, ErrMalformedErrorResponse
 		}
 
-		return response, apiErr.Error
+		return response, apiErr
 	}
 
 	return response, nil

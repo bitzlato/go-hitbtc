@@ -1,9 +1,12 @@
 package hitbtc
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 )
+
+var _ json.Unmarshaler = &APIError{}
 
 var ErrMalformedErrorResponse = errors.New("malformed error response")
 
@@ -11,6 +14,19 @@ type APIError struct {
 	Code        int    `json:"code"`
 	Message     string `json:"message,omitempty"`
 	Description string `json:"description,omitempty"`
+}
+
+func (e *APIError) UnmarshalJSON(data []byte) error {
+	type Alias APIError
+	aux := &struct {
+		*Alias `json:"error"`
+	}{
+		Alias: (*Alias)(e),
+	}
+	if err := json.Unmarshal(data, aux); err != nil {
+		return err
+	}
+	return nil
 }
 
 func IsAPIError(v interface{}) bool {

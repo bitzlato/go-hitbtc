@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/juju/errors v1.0.0
-	github.com/saniales/go-hitbtc v0.0.0-20190107211814-7468d66640dd
 	github.com/sourcegraph/jsonrpc2 v0.1.0
 	github.com/stretchr/testify v1.8.1
 )
